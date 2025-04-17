@@ -1,3 +1,129 @@
-<h1>
-    Hello World
-</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>California House Price Prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Arimo&family=Hind:wght@300&family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arimo', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .login {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 400px;
+      animation: slideIn 1s ease-out forwards;
+      color: white;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .login h1 {
+      font-family: 'Pacifico', cursive;
+      text-align: center;
+      color: #fff;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    input::placeholder {
+      color: #f5f5f5;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    input[type="text"]:focus {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.02);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #ffffff;
+      color: #764ba2;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #f0f0f0;
+    }
+
+    .prediction-text {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 18px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login">
+    <h1>California House Price Prediction</h1>
+
+    <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict') }}" method="post">
+      <input type="text" name="MedInc" placeholder="Median Income" required />
+      <input type="text" name="HouseAge" placeholder="House Age" required />
+      <input type="text" name="AveRooms" placeholder="Average Rooms" required />
+      <input type="text" name="AveBedrms" placeholder="Average Bedrooms" required />
+      <input type="text" name="Population" placeholder="Population" required />
+      <input type="text" name="AveOccup" placeholder="Average Occupancy" required />
+      <input type="text" name="Latitude" placeholder="Latitude" required />
+      <input type="text" name="Longitude" placeholder="Longitude" required />
+
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <div class="prediction-text">{{ prediction_text }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>
